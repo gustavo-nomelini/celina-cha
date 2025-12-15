@@ -139,21 +139,18 @@ export default function Home() {
     setMobileOpen(false);
   };
 
-  const copyAddress = async () => {
-    try {
-      await navigator.clipboard.writeText('Rua Exemplo, 123');
-      pushToast({
-        title: 'Endereço copiado',
-        description: 'Agora é só colar no seu app de mapas.',
-        tone: 'success',
-      });
-    } catch {
-      pushToast({
-        title: 'Não foi possível copiar',
-        description: 'Seu navegador bloqueou a ação.',
-        tone: 'info',
-      });
+  const openAddressOnMaps = () => {
+    const address = 'Rua Plínio Salgado, 549';
+    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+    const win = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!win) {
+      window.location.href = url;
     }
+    pushToast({
+      title: 'Abrindo no Google Maps',
+      description: address,
+      tone: 'success',
+    });
   };
 
   return (
@@ -435,14 +432,14 @@ export default function Home() {
             >
               <div className="text-xs font-bold uppercase tracking-[0.18em] text-text/70">Onde</div>
               <div className="mt-2 font-display text-xl font-bold">Espaço (placeholder)</div>
-              <div className="mt-1 text-sm text-text/80">Rua Exemplo, 123</div>
+              <div className="mt-1 text-sm text-text/80">Rua Plínio Salgado, 549</div>
               <motion.button
                 type="button"
-                onClick={copyAddress}
+                onClick={openAddressOnMaps}
                 className="mt-4 inline-flex h-9 items-center justify-center rounded-full border border-text/15 bg-accent/50 px-4 text-xs font-bold text-text"
                 whileTap={{ scale: 0.98 }}
               >
-                Copiar endereço
+                Abrir no Google Maps
               </motion.button>
             </motion.div>
             <motion.div
