@@ -57,7 +57,7 @@ export default function Home() {
   const eventDate = useMemo(() => {
     // Ajuste depois com a data real do evento.
     // Formato: ano, mês-1, dia, hora, minuto
-    return new Date(2026, 0, 24, 16, 0);
+    return new Date(2026, 0, 17, 15, 0);
   }, []);
 
   const { scrollYProgress } = useScroll();
@@ -318,14 +318,6 @@ export default function Home() {
 
           <div className="grid items-center gap-10 sm:grid-cols-2">
             <div>
-              <motion.p
-                className="inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-text/80"
-                whileHover={{ y: -1 }}
-              >
-                Convite interativo
-                <span className="h-1 w-1 rounded-full bg-text/40" />
-                Menina
-              </motion.p>
               <h1 className="mt-4 font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
                 Chá de Bebê da Celina
               </h1>
@@ -441,7 +433,7 @@ export default function Home() {
               <motion.button
                 type="button"
                 onClick={openAddressOnMaps}
-                className="mt-4 inline-flex h-9 items-center justify-center rounded-full border border-text/15 bg-accent/50 px-4 text-xs font-bold text-text"
+                className="mt-4 inline-flex h-9 items-center justify-center rounded-full border border-text/15 bg-primary px-4 text-xs font-bold text-text"
                 whileTap={{ scale: 0.98 }}
               >
                 Abrir no Google Maps
@@ -518,8 +510,8 @@ export default function Home() {
               </p>
               <GlowSubmitButton
                 className="h-11 px-6 text-sm"
-                bgColor="bg-success"
-                glowColor="rgba(168, 203, 183, 0.7)"
+                bgColor="bg-primary"
+                glowColor="rgba(246, 196, 83, 0.7)"
               >
                 ✨ Enviar RSVP
               </GlowSubmitButton>
@@ -622,8 +614,8 @@ export default function Home() {
               </label>
               <GlowSubmitButton
                 className="mt-5 h-11 w-full px-6 text-sm"
-                bgColor="bg-accent"
-                glowColor="rgba(242, 182, 182, 0.7)"
+                bgColor="bg-primary"
+                glowColor="rgba(246, 196, 83, 0.7)"
               >
                 💌 Publicar
               </GlowSubmitButton>
@@ -656,7 +648,7 @@ export default function Home() {
       <footer className="border-t border-text/10 bg-background/60">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-10 text-sm text-text/70 sm:flex-row sm:items-center sm:justify-between">
           <div>Feito com carinho para o Chá de Bebê da Celina.</div>
-          <div className="text-xs">Next.js + TailwindCSS</div>
+          <div className="text-xs">Com amor por Gus e Jess 💛</div>
         </div>
       </footer>
     </div>
