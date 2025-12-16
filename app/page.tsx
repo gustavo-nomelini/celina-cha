@@ -154,7 +154,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-dvh bg-background text-text">
+    <div className="relative isolate min-h-dvh bg-primaryLight text-text">
+      <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
+        <div className="absolute -top-24 left-1/2 h-112 w-112 -translate-x-1/2 rounded-full bg-primary/35 blur-3xl" />
+        <div className="absolute top-28 left-6 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-112 w-112 rounded-full bg-success/25 blur-3xl" />
+        <div className="absolute inset-0 bg-linear-to-b from-background/70 via-primaryLight/40 to-primaryLight" />
+      </div>
+
       <AnimatePresence>
         {toasts.length > 0 && (
           <div className="pointer-events-none fixed right-4 top-4 z-50 space-y-3">
@@ -190,7 +197,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <header className="sticky top-0 z-30 border-b border-text/10 bg-background/75 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-text/10 bg-background/70 backdrop-blur">
         <motion.div className="h-0.75 origin-left bg-primary" style={{ scaleX: progress }} />
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-3">
           <motion.button
@@ -218,7 +225,7 @@ export default function Home() {
                 key={item.id}
                 type="button"
                 onClick={() => scrollToId(item.id)}
-                className="rounded-full px-3 py-2 transition hover:bg-primaryLight hover:text-text"
+                className="rounded-full px-3 py-2 transition hover:bg-primaryLight/70 hover:text-text"
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -230,7 +237,7 @@ export default function Home() {
           <motion.button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="inline-flex h-10 items-center justify-center rounded-full border border-text/15 bg-primaryLight/70 px-4 text-sm font-bold text-text sm:hidden"
+            className="inline-flex h-10 items-center justify-center rounded-full border border-text/15 bg-background/70 px-4 text-sm font-bold text-text sm:hidden"
             whileTap={{ scale: 0.98 }}
             aria-label="Abrir menu"
             aria-expanded={mobileOpen}
@@ -255,7 +262,7 @@ export default function Home() {
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              className="absolute right-3 top-3 w-[min(92vw,360px)] overflow-hidden rounded-3xl border border-text/10 bg-background shadow-xl"
+              className="absolute right-3 top-3 w-[min(92vw,360px)] overflow-hidden rounded-3xl border border-text/10 bg-background/95 shadow-xl"
               initial={{ opacity: 0, y: -8, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
@@ -266,7 +273,7 @@ export default function Home() {
                 <motion.button
                   type="button"
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-full border border-text/15 bg-primaryLight/70 px-3 py-1 text-sm font-bold"
+                  className="rounded-full border border-text/15 bg-primaryLight/60 px-3 py-1 text-sm font-bold"
                   whileTap={{ scale: 0.98 }}
                 >
                   Fechar
@@ -283,7 +290,7 @@ export default function Home() {
                     key={item.id}
                     type="button"
                     onClick={() => scrollToId(item.id)}
-                    className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-bold text-text hover:bg-primaryLight"
+                    className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-bold text-text hover:bg-primaryLight/60"
                     whileTap={{ scale: 0.99 }}
                   >
                     <span>{item.label}</span>
@@ -304,15 +311,15 @@ export default function Home() {
           variants={fadeUp}
         >
           <div className="absolute inset-0 -z-10">
-            <div className="absolute left-6 top-8 h-28 w-28 rounded-full bg-accent/35 blur-2xl" />
-            <div className="absolute right-6 top-16 h-32 w-32 rounded-full bg-primaryLight blur-2xl" />
-            <div className="absolute bottom-0 left-1/2 h-24 w-72 -translate-x-1/2 rounded-full bg-success/35 blur-2xl" />
+            <div className="absolute left-6 top-8 h-28 w-28 rounded-full bg-accent/25 blur-2xl" />
+            <div className="absolute right-6 top-16 h-32 w-32 rounded-full bg-primary/20 blur-2xl" />
+            <div className="absolute bottom-0 left-1/2 h-24 w-72 -translate-x-1/2 rounded-full bg-success/25 blur-2xl" />
           </div>
 
           <div className="grid items-center gap-10 sm:grid-cols-2">
             <div>
               <motion.p
-                className="inline-flex items-center gap-2 rounded-full bg-primaryLight px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-text/80"
+                className="inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-text/80"
                 whileHover={{ y: -1 }}
               >
                 Convite interativo
@@ -331,7 +338,7 @@ export default function Home() {
                 <motion.button
                   type="button"
                   onClick={() => scrollToId('rsvp')}
-                  className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-bold text-text shadow-sm transition hover:brightness-95"
+                  className="inline-flex h-11 items-center justify-center rounded-full bg-text px-6 text-sm font-bold text-background shadow-sm transition hover:brightness-95"
                   whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -340,7 +347,7 @@ export default function Home() {
                 <motion.button
                   type="button"
                   onClick={() => scrollToId('presentes')}
-                  className="inline-flex h-11 items-center justify-center rounded-full border border-text/15 bg-primaryLight/70 px-6 text-sm font-bold text-text transition hover:bg-primaryLight/90"
+                  className="inline-flex h-11 items-center justify-center rounded-full border border-text/15 bg-background/70 px-6 text-sm font-bold text-text transition hover:bg-background/85"
                   whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -350,7 +357,7 @@ export default function Home() {
             </div>
 
             <motion.div
-              className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6 shadow-sm backdrop-blur"
+              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-30px_rgba(90,70,52,0.55)] backdrop-blur"
               variants={scaleIn}
             >
               <div className="flex items-baseline justify-between">
@@ -370,7 +377,7 @@ export default function Home() {
                 ).map((item) => (
                   <motion.div
                     key={item.label}
-                    className="rounded-2xl bg-primaryLight px-3 py-4 text-center"
+                    className="rounded-2xl bg-primaryLight/80 px-3 py-4 text-center"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.99 }}
                   >
@@ -415,7 +422,7 @@ export default function Home() {
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <motion.div
-              className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6"
+              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
             >
@@ -426,7 +433,7 @@ export default function Home() {
               <div className="mt-1 text-sm text-text/80">16:00</div>
             </motion.div>
             <motion.div
-              className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6"
+              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
             >
@@ -443,7 +450,7 @@ export default function Home() {
               </motion.button>
             </motion.div>
             <motion.div
-              className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6"
+              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
               whileHover={{ y: -2 }}
               transition={{ duration: 0.2 }}
             >
@@ -471,7 +478,7 @@ export default function Home() {
 
           <form
             onSubmit={onSubmitRsvp}
-            className="mt-6 rounded-3xl border border-text/10 bg-primaryLight/55 p-6"
+            className="mt-6 rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <label className="block">
@@ -479,7 +486,7 @@ export default function Home() {
                 <input
                   value={rsvpName}
                   onChange={(e) => setRsvpName(e.target.value)}
-                  className="mt-2 h-11 w-full rounded-2xl border border-text/15 bg-background px-4 text-sm outline-none focus:border-primary"
+                  className="mt-2 h-11 w-full rounded-2xl border border-text/15 bg-background px-4 text-sm outline-none placeholder:text-text/40 focus:border-primary"
                   placeholder="Seu nome"
                   required
                 />
@@ -501,7 +508,7 @@ export default function Home() {
                 value={rsvpNote}
                 onChange={(e) => setRsvpNote(e.target.value)}
                 rows={3}
-                className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+                className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none placeholder:text-text/40 focus:border-primary"
                 placeholder="Alergias, recadinho, etc."
               />
             </label>
@@ -552,7 +559,7 @@ export default function Home() {
                     tone: 'info',
                   })
                 }
-                className="group rounded-3xl border border-text/10 bg-primaryLight/55 p-6 transition hover:border-primary"
+                className="group rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)] transition hover:border-primary"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.99 }}
               >
@@ -561,7 +568,7 @@ export default function Home() {
                     <div className="font-display text-xl font-bold">{item.title}</div>
                     <div className="mt-1 text-sm text-text/80">{item.desc}</div>
                   </div>
-                  <div className="rounded-full bg-primaryLight px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-text/70">
+                  <div className="rounded-full bg-primaryLight/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-text/70">
                     link
                   </div>
                 </div>
@@ -589,14 +596,14 @@ export default function Home() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <form
               onSubmit={onAddMessage}
-              className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6"
+              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
             >
               <label className="block">
                 <span className="text-sm font-semibold">Seu nome</span>
                 <input
                   value={messageName}
                   onChange={(e) => setMessageName(e.target.value)}
-                  className="mt-2 h-11 w-full rounded-2xl border border-text/15 bg-background px-4 text-sm outline-none focus:border-accent"
+                  className="mt-2 h-11 w-full rounded-2xl border border-text/15 bg-background px-4 text-sm outline-none placeholder:text-text/40 focus:border-accent"
                   placeholder="Como você quer assinar"
                 />
               </label>
@@ -606,7 +613,7 @@ export default function Home() {
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   rows={4}
-                  className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none focus:border-accent"
+                  className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none placeholder:text-text/40 focus:border-accent"
                   placeholder="Escreva um recadinho..."
                 />
               </label>
@@ -620,7 +627,7 @@ export default function Home() {
               </motion.button>
             </form>
 
-            <div className="rounded-3xl border border-text/10 bg-primaryLight/55 p-6">
+            <div className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]">
               <div className="flex items-baseline justify-between">
                 <div className="text-sm font-bold uppercase tracking-[0.18em] text-text/70">
                   Últimos recados
@@ -631,7 +638,7 @@ export default function Home() {
                 {wall.map((m, idx) => (
                   <motion.div
                     key={`${m.name}-${idx}`}
-                    className="rounded-2xl bg-background px-4 py-3"
+                    className="rounded-2xl bg-primaryLight/80 px-4 py-3"
                     whileHover={{ y: -1 }}
                   >
                     <div className="text-sm font-bold">{m.name}</div>
@@ -644,7 +651,7 @@ export default function Home() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-text/10 bg-background">
+      <footer className="border-t border-text/10 bg-background/60">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-10 text-sm text-text/70 sm:flex-row sm:items-center sm:justify-between">
           <div>Feito com carinho para o Chá de Bebê da Celina.</div>
           <div className="text-xs">Next.js + TailwindCSS</div>
