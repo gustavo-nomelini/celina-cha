@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionDivider } from '@/components/SectionDivider';
 import { GlowButton, GlowSubmitButton } from '@/components/Sparkles';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
@@ -400,9 +401,11 @@ export default function Home() {
           </div>
         </motion.section>
 
+        <SectionDivider variant="star" />
+
         <motion.section
           id="detalhes"
-          className="mt-14 scroll-mt-24"
+          className="scroll-mt-24"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
@@ -458,9 +461,11 @@ export default function Home() {
           </div>
         </motion.section>
 
+        <SectionDivider variant="flower" />
+
         <motion.section
           id="rsvp"
-          className="mt-14 scroll-mt-24"
+          className="scroll-mt-24"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
@@ -522,9 +527,11 @@ export default function Home() {
           </form>
         </motion.section>
 
+        <SectionDivider variant="dots" />
+
         <motion.section
           id="presentes"
-          className="mt-14 scroll-mt-24"
+          className="scroll-mt-24"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
@@ -574,9 +581,11 @@ export default function Home() {
           </div>
         </motion.section>
 
+        <SectionDivider variant="star" />
+
         <motion.section
           id="recados"
-          className="mt-14 scroll-mt-24"
+          className="scroll-mt-24"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
