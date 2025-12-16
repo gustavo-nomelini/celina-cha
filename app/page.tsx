@@ -1,5 +1,6 @@
 'use client';
 
+import { GlowButton, GlowSubmitButton } from '@/components/Sparkles';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 
@@ -156,9 +157,9 @@ export default function Home() {
   return (
     <div className="relative isolate min-h-dvh bg-primaryLight text-text">
       <div className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -top-24 left-1/2 h-112 w-112 -translate-x-1/2 rounded-full bg-primary/35 blur-3xl" />
+        <div className="absolute -top-24 left-1/2 h-112 w-md -translate-x-1/2 rounded-full bg-primary/35 blur-3xl" />
         <div className="absolute top-28 left-6 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-112 w-112 rounded-full bg-success/25 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-112 w-md rounded-full bg-success/25 blur-3xl" />
         <div className="absolute inset-0 bg-linear-to-b from-background/70 via-primaryLight/40 to-primaryLight" />
       </div>
 
@@ -214,23 +215,21 @@ export default function Home() {
             </span>
           </motion.button>
 
-          <nav className="hidden items-center gap-3 text-sm font-semibold text-text/80 sm:flex">
+          <nav className="hidden items-center gap-3 text-sm sm:flex">
             {[
               { id: 'detalhes', label: 'Detalhes' },
               { id: 'rsvp', label: 'Confirmação' },
               { id: 'presentes', label: 'Presentes' },
               { id: 'recados', label: 'Recados' },
             ].map((item) => (
-              <motion.button
+              <GlowButton
                 key={item.id}
-                type="button"
                 onClick={() => scrollToId(item.id)}
-                className="rounded-full px-3 py-2 transition hover:bg-primaryLight/70 hover:text-text"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
+                variant="nav"
+                className="px-3 py-2"
               >
                 {item.label}
-              </motion.button>
+              </GlowButton>
             ))}
           </nav>
 
@@ -335,24 +334,20 @@ export default function Home() {
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <motion.button
-                  type="button"
+                <GlowButton
                   onClick={() => scrollToId('rsvp')}
-                  className="inline-flex h-11 items-center justify-center rounded-full bg-text px-6 text-sm font-bold text-background shadow-sm transition hover:brightness-95"
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+                  variant="primary"
+                  className="h-11 px-6 text-sm"
                 >
-                  Confirmar presença
-                </motion.button>
-                <motion.button
-                  type="button"
+                  ✨ Confirmar presença
+                </GlowButton>
+                <GlowButton
                   onClick={() => scrollToId('presentes')}
-                  className="inline-flex h-11 items-center justify-center rounded-full border border-text/15 bg-background/70 px-6 text-sm font-bold text-text transition hover:bg-background/85"
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+                  variant="secondary"
+                  className="h-11 px-6 text-sm"
                 >
-                  Ver lista de presentes
-                </motion.button>
+                  🎁 Ver lista de presentes
+                </GlowButton>
               </div>
             </div>
 
@@ -516,14 +511,13 @@ export default function Home() {
               <p className="text-xs text-text/70">
                 Dica: depois podemos integrar com WhatsApp, planilha ou banco.
               </p>
-              <motion.button
-                type="submit"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-success px-6 text-sm font-bold text-text transition hover:brightness-95"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
+              <GlowSubmitButton
+                className="h-11 px-6 text-sm"
+                bgColor="bg-success"
+                glowColor="rgba(168, 203, 183, 0.7)"
               >
-                Enviar RSVP
-              </motion.button>
+                ✨ Enviar RSVP
+              </GlowSubmitButton>
             </div>
           </form>
         </motion.section>
@@ -617,14 +611,13 @@ export default function Home() {
                   placeholder="Escreva um recadinho..."
                 />
               </label>
-              <motion.button
-                type="submit"
-                className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-bold text-text transition hover:brightness-95"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
+              <GlowSubmitButton
+                className="mt-5 h-11 w-full px-6 text-sm"
+                bgColor="bg-accent"
+                glowColor="rgba(242, 182, 182, 0.7)"
               >
-                Publicar
-              </motion.button>
+                💌 Publicar
+              </GlowSubmitButton>
             </form>
 
             <div className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]">
