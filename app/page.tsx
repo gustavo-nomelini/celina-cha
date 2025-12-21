@@ -614,52 +614,61 @@ export default function Home() {
           variants={fadeUp}
         >
           <h2 className="font-display text-3xl font-bold">Lista de presentes</h2>
-          <p className="mt-2 max-w-prose text-sm leading-6 text-text/80">
-            Pedimos com carinho que cada um dos convidados traga um pacote de fraldas.
-            <br />
-            Além disso, estamos deixando disponível uma lista de presentes para os pais.
-            <br />
-            Para quem possa contribuir com algo além das fraldas, aqui estão algumas sugestões:
-            <br />
-            Esses itens podem ser comprados semelhantes em outros sites ou lojas físicas.
-            <br />
-          </p>
+          
+          <div className="mt-6 rounded-3xl border-2 border-primary/40 bg-primaryLight/30 p-6">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🧷</span>
+              <h3 className="font-display text-xl font-bold text-text">Fraldas – Presente obrigatório</h3>
+            </div>
+            <div className="mt-4 space-y-2 text-sm leading-6 text-text/80">
+              <p>
+                <strong className="text-text">Pedimos que cada convidado traga um pacote de fraldas</strong> das marcas <strong className="text-text">Pampers</strong> ou <strong className="text-text">Huggies</strong>.
+              </p>
+              <p className="flex items-center gap-2 rounded-xl bg-accent/20 px-3 py-2 text-text">
+                <span>⚠️</span>
+                <span><strong>Importante:</strong> NÃO traga tamanho RN (recém-nascido).</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <span>📱</span>
+                <span>Acompanhe a <strong className="text-text">enquete no WhatsApp</strong> para verificar qual tamanho está sendo menos comprado e ajudar a equilibrar!</span>
+              </p>
+            </div>
+          </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {[
-              { title: 'Fraldas (RN/P/M)', desc: 'Sugestão de kit com tamanhos variados.' },
-              { title: 'Lenços umedecidos', desc: 'Pacotes com boa composição.' },
-              { title: 'Body e mijão', desc: 'Algodão, cores claras.' },
-              { title: 'Kit higiene', desc: 'Escova, pente, tesourinha.' },
-            ].map((item) => (
-              <motion.button
-                key={item.title}
-                type="button"
-                onClick={() =>
-                  pushToast({
-                    title: 'Link em breve',
-                    description: `Você clicou em: ${item.title}`,
-                    tone: 'info',
-                  })
-                }
-                className="group rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)] transition hover:border-primary"
+          <div className="mt-8">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🎁</span>
+              <h3 className="font-display text-xl font-bold">Lista de presentes (opcional)</h3>
+            </div>
+            <p className="mt-2 max-w-prose text-sm leading-6 text-text/70">
+              Para quem quiser presentear além das fraldas, preparamos uma lista na Amazon.
+              <br />
+              <span className="italic">Os itens podem ser comprados em outros sites ou lojas físicas, incluindo produtos semelhantes de outras marcas.</span>
+            </p>
+
+            <div className="mt-4">
+              <motion.a
+                href="https://www.amazon.com.br/baby-reg/jssica-saggin-gustavo-nomelini-maro-2026-cascavel/E03SA4SL9PAI?ref_=cm_sw_r_cp_ud_dp_4NJJ9VWJY0HQE10DZZNX"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)] transition hover:border-primary"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.99 }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="font-display text-xl font-bold">{item.title}</div>
-                    <div className="mt-1 text-sm text-text/80">{item.desc}</div>
+                    <div className="font-display text-xl font-bold">Lista da Amazon</div>
+                    <div className="mt-1 text-sm text-text/80">Sugestões de presentes para a Celina</div>
                   </div>
                   <div className="rounded-full bg-primaryLight/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-text/70">
                     link
                   </div>
                 </div>
                 <div className="mt-4 text-sm font-semibold text-text/70 group-hover:text-text">
-                  Abrir sugestão
+                  Abrir lista de presentes →
                 </div>
-              </motion.button>
-            ))}
+              </motion.a>
+            </div>
           </div>
         </motion.section>
 
