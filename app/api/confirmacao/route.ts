@@ -9,7 +9,10 @@ export async function GET() {
     });
 
     const totalGuests = guests.length;
-    const totalPeople = guests.reduce((acc: number, g) => acc + (g.quantity ?? 1), 0);
+    const totalPeople = guests.reduce(
+      (acc: number, g: { quantity?: number | null }) => acc + (g.quantity ?? 1),
+      0
+    );
 
     return NextResponse.json({
       ok: true,
