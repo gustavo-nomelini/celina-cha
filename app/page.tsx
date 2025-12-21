@@ -107,12 +107,13 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const res = await fetch('/api/recados', {
+      const res = await fetch('/api/confirmacao', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: rsvpName.trim(),
-          message: rsvpNote.trim() || '',
+          quantity: rsvpGuests,
+          note: rsvpNote.trim() || undefined,
         }),
       });
       const json = await res.json();

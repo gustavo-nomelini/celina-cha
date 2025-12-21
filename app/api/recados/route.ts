@@ -1,15 +1,15 @@
 import { prisma } from '@/lib/prisma';
-import { recadoSchema } from '@/lib/validators/recado';
+import { mensagemSchema } from '@/lib/validators/mensagem';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const recados = await prisma.guest.findMany({
+    const messages = await prisma.message.findMany({
       orderBy: { createdAt: 'desc' },
       take: 20,
     });
 
-    return NextResponse.json({ ok: true, data: recados });
+    return NextResponse.json({ ok: true, data: messages });
   } catch (error) {
     console.error('Erro ao buscar recados:', error);
     return NextResponse.json(
@@ -22,7 +22,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const parsed = recadoSchema.safeParse(body);
+    const parsed = mensagemSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -31,16 +31,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, message } = parsed.data;
+    const { name, content } = parsed.data;
 
-    const recado = await prisma.guest.create({
-      data: {
-        name,
-        message: message || '',
-      },
+    const message = await prisma.message.create({
+      data: { name, content },
     });
 
-    return NextResponse.json({ ok: true, data: recado }, { status: 201 });
+    return NextResponse.json({ ok: true, data: message }, { status: 201 });
   } catch (error) {
     console.error('Erro ao criar recado:', error);
     return NextResponse.json(

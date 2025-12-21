@@ -6,10 +6,10 @@ import { GlowSubmitButton } from './Sparkles';
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
-type Guest = {
+type Message = {
   id: string;
   name: string;
-  message: string;
+  content: string;
   createdAt: string;
 };
 
@@ -24,20 +24,20 @@ type GuestBookProps = {
 };
 
 export function GuestBook({ onToast }: GuestBookProps) {
-  const [guests, setGuests] = useState<Guest[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+  const [content, setContent] = useState('');
 
-  async function fetchGuests() {
+  async function fetchMessages() {
     setLoading(true);
     try {
       const res = await fetch('/api/recados');
-      const json: ApiResponse<Guest[]> = await res.json();
+      const json: ApiResponse<Message[]> = await res.json();
 
       if (json.ok && json.data) {
-        setGuests(json.data);
+        setMessages(json.data);
       } else {
         console.error('Erro ao buscar recados:', json.error?.message);
       }
@@ -48,15 +48,15 @@ export function GuestBook({ onToast }: GuestBookProps) {
   }
 
   useEffect(() => {
-    void fetchGuests();
+    void fetchMessages();
   }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const trimmedName = name.trim();
-    const trimmedMessage = message.trim();
+    const trimmedContent = content.trim();
 
-    if (!trimmedName || !trimmedMessage) return;
+    if (!trimmedName || !trimmedContent) return;
 
     setSubmitting(true);
 
@@ -64,14 +64,14 @@ export function GuestBook({ onToast }: GuestBookProps) {
       const res = await fetch('/api/recados', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: trimmedName, message: trimmedMessage }),
+        body: JSON.stringify({ name: trimmedName, content: trimmedContent }),
       });
-      const json: ApiResponse<Guest> = await res.json();
+      const json: ApiResponse<Message> = await res.json();
 
       if (json.ok && json.data) {
-        setGuests((prev) => [json.data!, ...prev]);
+        setMessages((prev) => [json.data!, ...prev]);
         setName('');
-        setMessage('');
+        setContent('');
         onToast?.({ title: 'Recado publicado!', tone: 'success' });
       } else {
         onToast?.({ title: 'Erro ao enviar', description: json.error?.message, tone: 'info' });
@@ -112,8 +112,8 @@ export function GuestBook({ onToast }: GuestBookProps) {
         <label className="mt-4 block">
           <span className="text-sm font-semibold">Mensagem</span>
           <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             rows={4}
             className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none placeholder:text-text/40 focus:border-accent"
             placeholder="Escreva um recadinho..."
@@ -135,20 +135,20 @@ export function GuestBook({ onToast }: GuestBookProps) {
             Últimos recados
           </div>
           <div className="text-xs text-text/70">
-            {loading ? 'carregando...' : `${guests.length} recados`}
+            {loading ? 'carregando...' : `${messages.length} recados`}
           </div>
         </div>
         <div className="mt-4 max-h-80 space-y-3 overflow-y-auto">
           {loading ? (
             <div className="py-8 text-center text-sm text-text/60">Carregando recados...</div>
-          ) : guests.length === 0 ? (
+          ) : messages.length === 0 ? (
             <div className="py-8 text-center text-sm text-text/60">
               Seja o primeiro a deixar um recado! 💛
             </div>
           ) : (
-            guests.map((guest) => (
+            messages.map((msg) => (
               <motion.div
-                key={guest.id}
+                key={msg.id}
                 className="rounded-2xl bg-primaryLight/80 px-4 py-3"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -156,10 +156,10 @@ export function GuestBook({ onToast }: GuestBookProps) {
                 whileHover={{ y: -1 }}
               >
                 <div className="flex items-baseline justify-between gap-2">
-                  <div className="text-sm font-bold">{guest.name}</div>
-                  <div className="text-xs text-text/50">{formatDate(guest.createdAt)}</div>
+                  <div className="text-sm font-bold">{msg.name}</div>
+                  <div className="text-xs text-text/50">{formatDate(msg.createdAt)}</div>
                 </div>
-                <div className="mt-1 text-sm text-text/80">{guest.message}</div>
+                <div className="mt-1 text-sm text-text/80">{msg.content}</div>
               </motion.div>
             ))
           )}

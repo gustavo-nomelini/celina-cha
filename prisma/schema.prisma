@@ -10,10 +10,21 @@ datasource db {
 
 model Guest {
   id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String    @db.VarChar(100)
-  message   String
+  name      String    @unique(map: "guests_name_unique") @db.VarChar(100)
   createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  quantity  Int?      @default(1)
+  note      String?
 
   @@index([createdAt(sort: Desc)], map: "idx_guests_created_at")
   @@map("guests")
+}
+
+model Message {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content   String
+  createdAt DateTime? @default(now()) @map("created_at") @db.Timestamptz(6)
+  name      String    @db.VarChar(100)
+
+  @@index([createdAt(sort: Desc)], map: "idx_messages_created_at")
+  @@map("messages")
 }
