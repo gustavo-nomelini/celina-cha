@@ -1,0 +1,96 @@
+# .windsurfrules — Convite Virtual (Next.js + Supabase + Prisma)
+
+## Contexto do projeto
+
+- Aplicação simples de convite virtual para chá de bebê.
+- Não há autenticação.
+- Usuário apenas:
+  - confirma presença
+  - escolhe um presente
+  - deixa um recado após confirmar
+
+## Stack fixa
+
+- Framework: Next.js (App Router)
+- PNPM: gerenciador de pacotes
+- Banco de dados: PostgreSQL (Supabase)
+- ORM: Prisma
+- Linguagem: TypeScript (strict)
+- Estilização: TailwindCSS
+
+## Princípios do projeto
+
+1. Simplicidade > complexidade
+2. Sem autenticação (nenhum login, sessão ou token)
+3. Segurança baseada em regras de negócio e validação
+4. Código legível e fácil de manter
+
+## Regras para o agente (obrigatório)
+
+1. Antes de criar endpoints ou models, explique rapidamente a estrutura proposta.
+2. Não adicionar autenticação ou auth providers.
+3. Não usar roles, users ou ACLs complexos.
+4. Não expor dados sensíveis nem permitir ações fora do fluxo:
+   - confirmar presença → escolher presente → deixar recado
+5. Evitar soluções enterprise (fila, cache, eventos, etc).
+
+## Fluxo de negócio (imutável)
+
+1. Convidado informa:
+   - nome
+   - mensagem opcional
+2. Convidado confirma presença
+3. Convidado escolhe UM presente (se houver disponíveis)
+4. Somente após confirmação:
+   - pode publicar no mural de recados
+
+## API / Rotas
+
+- Usar Route Handlers (`app/api/**/route.ts`)
+- Endpoints devem:
+  - validar dados (Zod)
+  - impedir duplicações
+  - retornar status HTTP correto
+- Padronizar respostas:
+  - `{ ok: true, data }`
+  - `{ ok: false, error: { message } }`
+
+## Banco de dados (Prisma)
+
+- Prisma é a fonte de verdade do schema.
+- Não usar SQL cru.
+- Relacionamentos claros:
+  - confirmação → presente
+  - confirmação → recado
+- Garantir integridade via constraints (unique, foreign keys).
+- Nunca apagar dados automaticamente.
+
+## Regras de validação
+
+- Nome do convidado é obrigatório.
+- Um convidado não pode:
+  - confirmar duas vezes
+  - escolher mais de um presente
+  - deixar recado sem confirmação
+- Presente não pode ser escolhido por mais de um convidado.
+
+## Estrutura recomendada
+
+- `/lib/prisma.ts` → Prisma Client singleton
+- `/lib/validators/*` → schemas Zod
+- `/app/api/confirmacao`
+- `/app/api/presentes`
+- `/app/api/recados`
+- `/prisma/schema.prisma`
+
+## Performance
+
+- Baixo volume de acesso esperado.
+- Priorizar clareza de código.
+- Queries simples e diretas.
+
+## Ambiente
+
+- Usar apenas DATABASE_URL (Supabase).
+- Nunca expor env vars no client.
+- Atualizar `.env.example` se necessário.

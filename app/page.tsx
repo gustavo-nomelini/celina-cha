@@ -1,5 +1,6 @@
 'use client';
 
+import { GuestBook } from '@/components/GuestBook';
 import { SectionDivider } from '@/components/SectionDivider';
 import { GlowButton, GlowSubmitButton } from '@/components/Sparkles';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
@@ -78,13 +79,6 @@ export default function Home() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const [messageName, setMessageName] = useState('');
-  const [messageText, setMessageText] = useState('');
-  const [wall, setWall] = useState<Array<{ name: string; text: string }>>([
-    { name: 'Tia Ana', text: 'Celina, você já é muito amada!' },
-    { name: 'Vovó', text: 'Que esse dia seja inesquecível para toda a família.' },
-  ]);
-
   useEffect(() => {
     const id = window.setInterval(() => {
       setCountdown(diffToCountdown(eventDate.getTime(), Date.now()));
@@ -109,29 +103,44 @@ export default function Home() {
     }, 3200);
   };
 
-  const onSubmitRsvp = (e: FormEvent) => {
+  const onSubmitRsvp = async (e: FormEvent) => {
     e.preventDefault();
-    // Protótipo: neste momento só demonstra UI.
-    // Depois dá para integrar com API route / banco.
-    setRsvpName('');
-    setRsvpGuests(1);
-    setRsvpNote('');
-    pushToast({
-      title: 'Presença confirmada!',
-      description: 'Obrigado por responder. (protótipo)',
-      tone: 'success',
-    });
-  };
 
-  const onAddMessage = (e: FormEvent) => {
-    e.preventDefault();
-    const name = messageName.trim();
-    const text = messageText.trim();
-    if (!name || !text) return;
-    setWall((prev) => [{ name, text }, ...prev]);
-    setMessageName('');
-    setMessageText('');
-    pushToast({ title: 'Recado publicado!', tone: 'info' });
+    try {
+      const res = await fetch('/api/recados', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: rsvpName.trim(),
+          message: rsvpNote.trim() || '',
+        }),
+      });
+      const json = await res.json();
+
+      if (json.ok) {
+        setRsvpName('');
+        setRsvpGuests(1);
+        setRsvpNote('');
+        pushToast({
+          title: 'Presença confirmada!',
+          description: 'Obrigado por responder.',
+          tone: 'success',
+        });
+      } else {
+        pushToast({
+          title: 'Erro ao confirmar',
+          description: json.error?.message || 'Tente novamente',
+          tone: 'info',
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao confirmar presença:', error);
+      pushToast({
+        title: 'Erro ao confirmar',
+        description: 'Tente novamente',
+        tone: 'info',
+      });
+    }
   };
 
   const scrollToId = (id: string) => {
@@ -588,59 +597,8 @@ export default function Home() {
             Um espaço carinhoso para deixar mensagens para a Celina e a família.
           </p>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <form
-              onSubmit={onAddMessage}
-              className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
-            >
-              <label className="block">
-                <span className="text-sm font-semibold">Seu nome</span>
-                <input
-                  value={messageName}
-                  onChange={(e) => setMessageName(e.target.value)}
-                  className="mt-2 h-11 w-full rounded-2xl border border-text/15 bg-background px-4 text-sm outline-none placeholder:text-text/40 focus:border-accent"
-                  placeholder="Como você quer assinar"
-                />
-              </label>
-              <label className="mt-4 block">
-                <span className="text-sm font-semibold">Mensagem</span>
-                <textarea
-                  value={messageText}
-                  onChange={(e) => setMessageText(e.target.value)}
-                  rows={4}
-                  className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none placeholder:text-text/40 focus:border-accent"
-                  placeholder="Escreva um recadinho..."
-                />
-              </label>
-              <GlowSubmitButton
-                className="mt-5 h-11 w-full px-6 text-sm"
-                bgColor="bg-primary"
-                glowColor="rgba(246, 196, 83, 0.7)"
-              >
-                💌 Publicar
-              </GlowSubmitButton>
-            </form>
-
-            <div className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]">
-              <div className="flex items-baseline justify-between">
-                <div className="text-sm font-bold uppercase tracking-[0.18em] text-text/70">
-                  Últimos recados
-                </div>
-                <div className="text-xs text-text/70">(protótipo local)</div>
-              </div>
-              <div className="mt-4 space-y-3">
-                {wall.map((m, idx) => (
-                  <motion.div
-                    key={`${m.name}-${idx}`}
-                    className="rounded-2xl bg-primaryLight/80 px-4 py-3"
-                    whileHover={{ y: -1 }}
-                  >
-                    <div className="text-sm font-bold">{m.name}</div>
-                    <div className="mt-1 text-sm text-text/80">{m.text}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          <div className="mt-6">
+            <GuestBook onToast={pushToast} />
           </div>
         </motion.section>
       </main>
