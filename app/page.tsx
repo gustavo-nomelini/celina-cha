@@ -387,7 +387,7 @@ export default function Home() {
                 ))}
               </div>
               <div className="mt-5 rounded-2xl border border-text/10 bg-background px-4 py-3">
-                <div className="text-sm font-semibold">Data (placeholder)</div>
+                <div className="text-sm font-semibold">Data</div>
                 <div className="text-sm text-text/80">
                   {eventDate.toLocaleString('pt-BR', {
                     weekday: 'long',
@@ -415,9 +415,6 @@ export default function Home() {
         >
           <div className="flex items-baseline justify-between gap-4">
             <h2 className="font-display text-3xl font-bold">Detalhes do evento</h2>
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-text/70">
-              ajuste com os dados reais
-            </span>
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -429,8 +426,8 @@ export default function Home() {
               <div className="text-xs font-bold uppercase tracking-[0.18em] text-text/70">
                 Quando
               </div>
-              <div className="mt-2 font-display text-xl font-bold">24/01/2026</div>
-              <div className="mt-1 text-sm text-text/80">16:00</div>
+              <div className="mt-2 font-display text-xl font-bold">17/01/2026</div>
+              <div className="mt-1 text-sm text-text/80">15:00</div>
             </motion.div>
             <motion.div
               className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
@@ -438,7 +435,7 @@ export default function Home() {
               transition={{ duration: 0.2 }}
             >
               <div className="text-xs font-bold uppercase tracking-[0.18em] text-text/70">Onde</div>
-              <div className="mt-2 font-display text-xl font-bold">Espaço (placeholder)</div>
+              <div className="mt-2 font-display text-xl font-bold">Espaço</div>
               <div className="mt-1 text-sm text-text/80">Rua Plínio Salgado, 549</div>
               <motion.button
                 type="button"
@@ -458,9 +455,89 @@ export default function Home() {
                 Dress code
               </div>
               <div className="mt-2 font-display text-xl font-bold">Confortável</div>
-              <div className="mt-1 text-sm text-text/80">Cores claras / candy</div>
             </motion.div>
           </div>
+
+          {/* Card especial - O que teremos na festa */}
+          <motion.div
+            className="relative mt-6 overflow-hidden rounded-3xl border-2 border-primary/40 bg-linear-to-br from-primary/10 via-background/95 to-accent/10 p-8 shadow-[0_24px_60px_-20px_rgba(246,196,83,0.35)]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: easeOut }}
+            whileHover={{ y: -3, boxShadow: '0 28px 70px -20px rgba(246,196,83,0.45)' }}
+          >
+            {/* Decorative elements */}
+            <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/20 blur-2xl" />
+            <div className="pointer-events-none absolute -bottom-6 -left-6 h-28 w-28 rounded-full bg-accent/20 blur-2xl" />
+            <div className="pointer-events-none absolute right-1/4 top-1/2 h-20 w-20 rounded-full bg-success/15 blur-xl" />
+
+            <div className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/30 text-xl">
+                  ✨
+                </div>
+                <div>
+                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                    Especial
+                  </div>
+                  <h3 className="font-display text-2xl font-bold">O que teremos na festa</h3>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                {[
+                  {
+                    emoji: '🍽️',
+                    title: 'Comidas e bebidas',
+                    desc: 'Preparado com amor pelos papais',
+                  },
+                  {
+                    emoji: '🍰',
+                    title: 'Mesa de doces',
+                    desc: 'Delícias preparadas com carinho',
+                  },
+                  {
+                    emoji: '📸',
+                    title: 'Cantinho de fotos',
+                    desc: 'Cenário especial para registros',
+                  },
+                  {
+                    emoji: '🎮',
+                    title: 'Brincadeiras',
+                    desc: 'Diversão garantida para todos',
+                  },
+                  {
+                    emoji: '🎁',
+                    title: 'Lembrancinhas',
+                    desc: 'Um mimo para levar pra casa',
+                  },
+                ].map((item, index) => (
+                  <motion.div
+                    key={item.title}
+                    className="group relative rounded-2xl border border-text/10 bg-background/80 p-5 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-background/95"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1, ease: easeOut }}
+                    whileHover={{ y: -2, scale: 1.02 }}
+                  >
+                    <div className="absolute -right-1 -top-1 h-8 w-8 rounded-full bg-primary/10 opacity-0 blur-lg transition-opacity group-hover:opacity-100" />
+                    <div className="mb-3 text-3xl">{item.emoji}</div>
+                    <div className="font-display text-base font-bold leading-tight">
+                      {item.title}
+                    </div>
+                    <div className="mt-1.5 text-xs leading-relaxed text-text/70">{item.desc}</div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex items-center justify-center gap-2 text-center">
+                <span className="text-sm text-text/60">E muito mais surpresas</span>
+                <span className="animate-pulse text-lg">💛</span>
+              </div>
+            </div>
+          </motion.div>
         </motion.section>
 
         <SectionDivider variant="flower" />

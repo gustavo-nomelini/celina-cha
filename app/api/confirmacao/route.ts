@@ -6,11 +6,10 @@ export async function GET() {
   try {
     const guests = await prisma.guest.findMany({
       orderBy: { createdAt: 'desc' },
-      include: { _count: { select: { messages: true } } },
     });
 
     const totalGuests = guests.length;
-    const totalPeople = guests.reduce((acc: number, g) => acc + g.quantity, 0);
+    const totalPeople = guests.reduce((acc: number, g) => acc + (g.quantity ?? 1), 0);
 
     return NextResponse.json({
       ok: true,
@@ -56,6 +55,12 @@ export async function POST(request: Request) {
     const guest = await prisma.guest.create({
       data: { name, quantity, note },
     });
+
+    if (note && note.trim()) {
+      await prisma.message.create({
+        data: { name, content: note.trim() },
+      });
+    }
 
     return NextResponse.json({ ok: true, data: guest }, { status: 201 });
   } catch (error) {
