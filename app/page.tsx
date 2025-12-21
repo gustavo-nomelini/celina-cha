@@ -552,7 +552,7 @@ export default function Home() {
         >
           <h2 className="font-display text-3xl font-bold">Confirmação de presença</h2>
           <p className="mt-2 max-w-prose text-sm leading-6 text-text/80">
-            Preencha abaixo para confirmar. (No protótipo, os dados não são enviados para servidor.)
+            Preencha abaixo para confirmar sua presença :
           </p>
 
           <form
@@ -571,7 +571,7 @@ export default function Home() {
                 />
               </label>
               <label className="block">
-                <span className="text-sm font-semibold">Quantidade</span>
+                <span className="text-sm font-semibold">Convidados</span>
                 <input
                   value={rsvpGuests}
                   onChange={(e) => setRsvpGuests(Number(e.target.value))}
@@ -588,19 +588,16 @@ export default function Home() {
                 onChange={(e) => setRsvpNote(e.target.value)}
                 rows={3}
                 className="mt-2 w-full resize-none rounded-2xl border border-text/15 bg-background px-4 py-3 text-sm outline-none placeholder:text-text/40 focus:border-primary"
-                placeholder="Alergias, recadinho, etc."
+                placeholder="Deixe um recadinho para a Celina e os pais !"
               />
             </label>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs text-text/70">
-                Dica: depois podemos integrar com WhatsApp, planilha ou banco.
-              </p>
               <GlowSubmitButton
                 className="h-11 px-6 text-sm"
                 bgColor="bg-primary"
                 glowColor="rgba(246, 196, 83, 0.7)"
               >
-                ✨ Enviar RSVP
+                ✨ Confirmar
               </GlowSubmitButton>
             </div>
           </form>
@@ -618,8 +615,14 @@ export default function Home() {
         >
           <h2 className="font-display text-3xl font-bold">Lista de presentes</h2>
           <p className="mt-2 max-w-prose text-sm leading-6 text-text/80">
-            Sugestões com links (placeholders). Você pode trocar por links reais ou integrar com uma
-            lista externa.
+            Pedimos com carinho que cada um dos convidados traga um pacote de fraldas.
+            <br />
+            Além disso, estamos deixando disponível uma lista de presentes para os pais.
+            <br />
+            Para quem possa contribuir com algo além das fraldas, aqui estão algumas sugestões:
+            <br />
+            Esses itens podem ser comprados semelhantes em outros sites ou lojas físicas.
+            <br />
           </p>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">

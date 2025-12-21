@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Chá de Bebê da Celina',
+  title: 'Chá da Celina',
   description: 'Convite interativo para o Chá de Bebê da Celina.',
 };
 
