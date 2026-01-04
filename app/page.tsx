@@ -58,7 +58,7 @@ export default function Home() {
   const eventDate = useMemo(() => {
     // Ajuste depois com a data real do evento.
     // Formato: ano, mês-1, dia, hora, minuto
-    return new Date(2026, 0, 17, 15, 0);
+    return new Date(2026, 0, 17, 16, 0);
   }, []);
 
   const { scrollYProgress } = useScroll();
@@ -68,8 +68,9 @@ export default function Home() {
     mass: 0.4,
   });
 
+  const [mounted, setMounted] = useState(false);
   const [countdown, setCountdown] = useState<Countdown>(() =>
-    diffToCountdown(eventDate.getTime(), Date.now())
+    diffToCountdown(eventDate.getTime(), eventDate.getTime())
   );
 
   const [rsvpName, setRsvpName] = useState('');
@@ -80,6 +81,9 @@ export default function Home() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   useEffect(() => {
+    setMounted(true);
+    setCountdown(diffToCountdown(eventDate.getTime(), Date.now()));
+
     const id = window.setInterval(() => {
       setCountdown(diffToCountdown(eventDate.getTime(), Date.now()));
     }, 1000);
@@ -427,7 +431,7 @@ export default function Home() {
                 Quando
               </div>
               <div className="mt-2 font-display text-xl font-bold">17/01/2026</div>
-              <div className="mt-1 text-sm text-text/80">15:00</div>
+              <div className="mt-1 text-sm text-text/80">16:00</div>
             </motion.div>
             <motion.div
               className="rounded-3xl border border-text/10 bg-background/90 p-6 shadow-[0_18px_50px_-34px_rgba(90,70,52,0.5)]"
@@ -614,23 +618,34 @@ export default function Home() {
           variants={fadeUp}
         >
           <h2 className="font-display text-3xl font-bold">Lista de presentes</h2>
-          
+
           <div className="mt-6 rounded-3xl border-2 border-primary/40 bg-primaryLight/30 p-6">
             <div className="flex items-center gap-3">
               <span className="text-3xl">🧷</span>
-              <h3 className="font-display text-xl font-bold text-text">Fraldas – Presente obrigatório</h3>
+              <h3 className="font-display text-xl font-bold text-text">
+                Fraldas – Presente obrigatório
+              </h3>
             </div>
             <div className="mt-4 space-y-2 text-sm leading-6 text-text/80">
               <p>
-                <strong className="text-text">Pedimos que cada convidado traga um pacote de fraldas</strong> das marcas <strong className="text-text">Pampers</strong> ou <strong className="text-text">Huggies</strong>.
+                <strong className="text-text">
+                  Pedimos que cada convidado traga um pacote de fraldas
+                </strong>{' '}
+                das marcas <strong className="text-text">Pampers</strong> ou{' '}
+                <strong className="text-text">Huggies</strong>.
               </p>
               <p className="flex items-center gap-2 rounded-xl bg-accent/20 px-3 py-2 text-text">
                 <span>⚠️</span>
-                <span><strong>Importante:</strong> NÃO traga tamanho RN (recém-nascido).</span>
+                <span>
+                  <strong>Importante:</strong> NÃO traga tamanho RN (recém-nascido).
+                </span>
               </p>
               <p className="flex items-center gap-2">
                 <span>📱</span>
-                <span>Acompanhe a <strong className="text-text">enquete no WhatsApp</strong> para verificar qual tamanho está sendo menos comprado e ajudar a equilibrar!</span>
+                <span>
+                  Acompanhe a <strong className="text-text">enquete no WhatsApp</strong> para
+                  verificar qual tamanho está sendo menos comprado e ajudar a equilibrar!
+                </span>
               </p>
             </div>
           </div>
@@ -643,7 +658,10 @@ export default function Home() {
             <p className="mt-2 max-w-prose text-sm leading-6 text-text/70">
               Para quem quiser presentear além das fraldas, preparamos uma lista na Amazon.
               <br />
-              <span className="italic">Os itens podem ser comprados em outros sites ou lojas físicas, incluindo produtos semelhantes de outras marcas.</span>
+              <span className="italic">
+                Os itens podem ser comprados em outros sites ou lojas físicas, incluindo produtos
+                semelhantes de outras marcas.
+              </span>
             </p>
 
             <div className="mt-4">
@@ -658,7 +676,9 @@ export default function Home() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="font-display text-xl font-bold">Lista da Amazon</div>
-                    <div className="mt-1 text-sm text-text/80">Sugestões de presentes para a Celina</div>
+                    <div className="mt-1 text-sm text-text/80">
+                      Sugestões de presentes para a Celina
+                    </div>
                   </div>
                   <div className="rounded-full bg-primaryLight/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-text/70">
                     link
